@@ -1,3 +1,5 @@
+declare var PRODUCTION: boolean;
+if (PRODUCTION) require('./analytics/base.js').init()
 import * as Elm from './Main.elm'
 import * as Opentype from 'opentype.js'
 import * as BinPack from './util/bin-pack.js'

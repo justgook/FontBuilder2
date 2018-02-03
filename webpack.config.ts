@@ -4,7 +4,9 @@ const packageData = require('./package.json')
 const webpack = require('webpack')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
+const MetaPlugin = require('./webpackPlugin/MetaPlugin')
 
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const uglifyJSOptions = {
   sequences: true, // join consecutive statemets with the "comma operator"
   properties: true, // optimize property access: a["foo"] → a.foo
@@ -138,7 +140,41 @@ module.exports = function (env: { waitTime?: Number, fps?: Number, signalingUrl?
       }),
       new webpack.optimize.ModuleConcatenationPlugin(),
       new webpack.NamedModulesPlugin(),
-
+      new webpack.DefinePlugin({
+        PRODUCTION: JSON.stringify(env && env.production),
+      }),
+      new CopyWebpackPlugin([
+        // {output}/file.txt
+        { from: 'src/assets/logo.png', to: "logo-500x500.png" },
+      ]),
+      new MetaPlugin(
+        (({ url, image, title, description }) => ({
+          facebook: {
+            type: "website",
+            url,
+            title,
+            description,
+            image: url + image,
+          },
+          twitter: {
+            card: "summary_large_image",
+            domain: "justgook.github.io",
+            title,
+            description,
+            image: url + image,
+            url,
+            label1: "Version",
+            data1: (<any>packageData).version,
+            label2: "License",
+            data2: (<any>packageData).license
+          }
+        }))({
+          url: "https://justgook.github.io/FontBuilder2/",
+          image: "logo-500x500.png",
+          title: "Bitmap Font Builder",
+          description: (<any>packageData).description
+        })
+      ),
     ],
     devServer: {
       host: '0.0.0.0',
@@ -152,3 +188,5 @@ module.exports = function (env: { waitTime?: Number, fps?: Number, signalingUrl?
     },
   }
 }
+
+
