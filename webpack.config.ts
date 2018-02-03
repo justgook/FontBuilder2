@@ -29,6 +29,7 @@ const uglifyJSOptions = {
 
 module.exports = function (env: { waitTime?: Number, fps?: Number, signalingUrl?: String, production: Boolean }) {
   return {
+    stats: "normal",
     entry: './src/index.ts',
     output: {
       path: path.resolve(__dirname, 'dist'),
@@ -116,7 +117,12 @@ module.exports = function (env: { waitTime?: Number, fps?: Number, signalingUrl?
           }
         })
         : new webpack.HotModuleReplacementPlugin(),
-      new HtmlWebpackPlugin({ title: (env && env.production) ? (<any>packageData).description : `- DEV - ${(<any>packageData).description} ` }),
+      new HtmlWebpackPlugin({
+        title: (env && env.production)
+          ? (<any>packageData).description
+          : `- DEV - ${(<any>packageData).description}`,
+        hash: (env && env.production)
+      }),
       new FaviconsWebpackPlugin({
         inject: true,
         background: '#020307',
@@ -125,7 +131,7 @@ module.exports = function (env: { waitTime?: Number, fps?: Number, signalingUrl?
         // The prefix for all image files (might be a folder or a name)
         prefix: 'icons-[hash]/',
         // Emit all stats of the generated icons
-        emitStats: false,
+        emitStats: true,
         // Generate a cache file with control hashes and
         // don't rebuild the favicons until those hashes change
         persistentCache: true,

@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "start": "webpack-dev-server --progress",
-    "build": "webpack --env.production --define process.env.NODE_ENV=production",
+    "build": "webpack --progress --env.production --define process.env.NODE_ENV=production",
     "elm-install": "elm-install"
   },
   "devDependencies": {
