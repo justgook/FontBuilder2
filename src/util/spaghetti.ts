@@ -1,10 +1,12 @@
-import * as Handlebars from 'handlebars/dist/handlebars'
+import * as Handlebars from 'handlebars'
 import * as Opentype from 'opentype.js'
 import * as BinPack from './bin-pack.js'
 import * as saveAs from './FileSaver.js'
 import * as JSZip from 'jszip'
 
-
+// declare module 'handlebars/dist/handlebars' {
+//   export = Handlebars;
+// }
 
 export interface Outcome {
   template: string,
@@ -93,7 +95,7 @@ const spaghetti = (data: Outcome, canvas: HTMLCanvasElement, css: boolean) => {
             path.fill = `rgba(${red}, ${green}, ${blue}, ${alpha})`
             path.draw(ctx)
           });
-          console.log(font)
+          // console.log(font)
           const dataForTemplate = {
             ...data,
             ascender: font.ascender,

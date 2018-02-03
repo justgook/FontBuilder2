@@ -1,5 +1,4 @@
 import * as Elm from './Main.elm'
-import * as Handlebars from 'handlebars/dist/handlebars'
 import * as Opentype from 'opentype.js'
 import * as BinPack from './util/bin-pack.js'
 import * as saveAs from './util/FileSaver.js'
@@ -8,9 +7,6 @@ import { Outcome, spaghetti } from './util/spaghetti'
 import { done } from './util/resultDownload'
 
 const app = Elm.Main.fullscreen()
-
-
-
 
 app.ports.outcome.subscribe((data: Outcome) =>
   spaghetti(data, <HTMLCanvasElement>document.getElementById('canvas'), true)
