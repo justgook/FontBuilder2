@@ -5,6 +5,8 @@ interface FacebookMeta {
   title: string
   description: string
   image: string
+  image_width: number
+  image_height: number
 }
 interface Twitter {
   card: string
@@ -29,12 +31,14 @@ module.exports = class MetaPlugin {
   constructor({ facebook, twitter }: Options) {
     let result = []
     if (facebook) {
-      const { type, url, title, description, image } = facebook
+      const { type, url, title, description, image, image_width, image_height } = facebook
       if (type) result.push(`<meta property="og:type" content="${type}" />`)
       if (url) result.push(`<meta property="og:url" content="${url}" />`)
       if (title) result.push(`<meta property="og:title" content="${title}" />`)
       if (description) result.push(`<meta property="og:description" content="${description}" />`)
       if (image) result.push(`<meta property="og:image" content="${image}" />`)
+      if (image_width) result.push(`<meta property="og:image:width" content="${image_width}" />`)
+      if (image_height) result.push(`<meta property="og:image:height" content="${image_height}" />`)
     }
     if (twitter) {
       const { card, domain, title, description, image, url, label1, data1, label2, data2 } = twitter

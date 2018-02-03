@@ -1,7 +1,7 @@
 {
   "name": "font-builder2",
   "version": "1.0.0",
-  "description": "Tool that allow You conver any google font to image and mapping file",
+  "description": "Tool that allow You convert any google font to image and mapping file",
   "license": "MIT",
   "private": true,
   "scripts": {

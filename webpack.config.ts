@@ -155,6 +155,8 @@ module.exports = function (env: { waitTime?: Number, fps?: Number, signalingUrl?
             title,
             description,
             image: url + image,
+            image_width: 500,
+            image_height: 500
           },
           twitter: {
             card: "summary_large_image",
