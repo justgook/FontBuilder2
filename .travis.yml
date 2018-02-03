@@ -30,5 +30,6 @@ deploy:
   keep-history: true
   local-dir: dist
   target-branch: gh-pages
+  verbose: true
   on:
     branch: master
