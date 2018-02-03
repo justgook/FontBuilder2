@@ -1,35 +1,35 @@
 language: node_js
 node_js:
-  - "8"
+- '8'
 cache:
   yarn: true
   directories:
-    - node_modules
-    - sysconfcpus
-
+  - node_modules
+  - sysconfcpus
 install:
-  - yarn
-  - yarn elm-install
-  - |
-    if [ ! -d sysconfcpus/bin ];
-    then
-      git clone https://github.com/obmarg/libsysconfcpus.git;
-      cd libsysconfcpus;
-      ./configure --prefix=$TRAVIS_BUILD_DIR/sysconfcpus;
-      make && make install;
-      cd ..;
-    fi
-
+- yarn
+- yarn elm-install
+- |
+  if [ ! -d sysconfcpus/bin ];
+  then
+    git clone https://github.com/obmarg/libsysconfcpus.git;
+    cd libsysconfcpus;
+    ./configure --prefix=$TRAVIS_BUILD_DIR/sysconfcpus;
+    make && make install;
+    cd ..;
+  fi
 script:
-    - $TRAVIS_BUILD_DIR/sysconfcpus/bin/sysconfcpus -n 2 yarn build
-
+- "$TRAVIS_BUILD_DIR/sysconfcpus/bin/sysconfcpus -n 2 yarn build"
 deploy:
   provider: pages
   skip-cleanup: true
-  github-token: $GITHUB_TOKEN  # Set in travis-ci.org dashboard, marked secure
+  github-token: "$GH_TOKEN"
   keep-history: true
   local-dir: dist
   target-branch: gh-pages
   verbose: true
   on:
     branch: master
+env:
+  global:
+    secure: eA2uohpZqq/T/urG9BGj8E2nfBiEjyJZHDnW+XGlgEDuti4oJ4lMKTGMI4WMz8iDEvU38ePEmy6SilTJhF6HTVpQJvqlf08qL/JOjtNtQIYaSMhwl2jzKI20Ka9bxj7YROaJx6FEEo9lYb5+UjuXCZNT97IbLmktwzErmWaW8llYUAZ4XZUK7gya2QS45o1X0WSInsMr8BY05tDrXI3UAhgLv8xoBk1j4GEwaLIPBO56okDbS7rvd8GRu1I+u84nzr0NooLpBGOpJX+qi3nzZCpJi4foonVQQ+9tG+y7eEy3T1m26+l6o5ligSJWUjo+IjREVlFAhyEKdVdJB0R3GsP+o7YklJ7FpVVqj/evph87bX6VD7izhYJtheSj2h2u0u0NCjJMH02UChueW2svSVqQLLscdVe0YhLTIUP9KN1NsN9a99Yi8AJniv+elLBGTVTAASK9YyD1UKxT2SLJGHe5JUNw4bfWVBHLyxIiqDypgvk9DS5DUSHQkUMiZKWuOTtShOVxc7l1ENKxFb3F4jwlOVRvwoj77dGMjz/55xJvwl3ahceso36PtRj5jFDv1Xd0lwD/eSffOnNjaL0Sz6Dh1zGQ3g2m9Ts5FPYz8cMJsiTlwGZejU+ndGvpdSAl/fN/iUBTdw+yaBeyp1VWyZpVUHV8TfPaUbxnPRCjLU8=
